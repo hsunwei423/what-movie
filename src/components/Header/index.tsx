@@ -9,14 +9,25 @@ import Input from 'components/common/Input';
 
 import { HEADER_ROUTE } from 'consts/header'
 
-const Container = styled.header`
+interface HeaderProps {
+  isHitTop?: boolean
+}
+
+const Container = styled.header<HeaderProps>`
   height: 58px;
 
   display: flex;
   align-items: center;
 
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.48);
+  box-shadow: ${props => props.isHitTop
+    ? 'none'
+    : '0px 2px 8px rgba(0, 0, 0, 0.48)'
+  };
   color: #1B1E25AD;
+  backdrop-filter: ${props => props.isHitTop
+    ? 'none'
+    : 'blur(5px)'
+  };
 `;
 
 const Wrapper = styled.div`
@@ -63,7 +74,7 @@ const NavItem = styled.a<NavItemProps>`
 }
 `;
 
-const Header = () => {
+const Header = ({ isHitTop = true }: HeaderProps) => {
   const [searchText, setSearchText] = useState<string>('');
   const router = useRouter();
 
@@ -87,7 +98,7 @@ const Header = () => {
   };
 
   return (
-    <Container>
+    <Container isHitTop={isHitTop}>
       <Wrapper>
         <LeftWrapper>
           <Images
