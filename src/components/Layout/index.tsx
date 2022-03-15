@@ -1,4 +1,7 @@
 import { ReactNode } from 'react';
+
+import Header from 'components/Header';
+
 import styled from 'styled-components';
 
 const MyLayout = styled.div`
@@ -15,6 +18,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps)  => {
   return (
     <MyLayout>
+      <Header />
       <main>
         {children}
       </main>
