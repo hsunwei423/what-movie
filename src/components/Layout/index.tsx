@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, FC } from 'react';
 
 import Header from 'components/Header';
 

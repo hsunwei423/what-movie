@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Images from 'next/image';
@@ -64,7 +64,12 @@ const NavItem = styled.a<NavItemProps>`
 `;
 
 const Header = () => {
+  const [searchText, setSearchText] = useState<string>('');
   const router = useRouter();
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value || '');
+  };
 
   const renderNavList = () => {
     return HEADER_ROUTE.map(nav =>{
@@ -92,7 +97,11 @@ const Header = () => {
             height={32}
             width={102}
           />
-          <Input placeholder="搜尋劇名/演員" />
+          <Input
+            placeholder="搜尋劇名/演員"
+            value={searchText}
+            onChange={handleSearchChange}
+          />
         </LeftWrapper>
         <RightWrapper>
           <NavWrapper>
