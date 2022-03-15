@@ -1,6 +1,18 @@
 export const HEADER_ROUTE = [
-  'movie',
-  'drama',
-  'topic',
-  'playList'
+  {
+    key: 'movie',
+    href: '/movie'
+  },
+  {
+    key: 'drama',
+    href: '/drama'
+  },
+  {
+    key: 'topic',
+    href: '/topic'
+  },
+  {
+    key: 'playList',
+    href: '/playList'
+  }
 ];

@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Images from 'next/image';
 import styled from 'styled-components';
 
 import Avatar from 'components/Avatar';
+import Input from 'components/common/Input';
 
 import { HEADER_ROUTE } from 'consts/header'
 
@@ -44,14 +47,40 @@ const NavWrapper = styled.div`
   column-gap: 12px;
 `;
 
-const NavItem = styled.div`
+interface NavItemProps {
+  active: boolean
+};
+
+const NavItem = styled.a<NavItemProps>`
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
   color: #fff;
+
+  border-bottom: ${props => props.active
+    ? 'linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%)'
+    : 'none'
+}
 `;
 
 const Header = () => {
+  const router = useRouter();
+
+  const renderNavList = () => {
+    return HEADER_ROUTE.map(nav =>{
+      return (
+        <Link href={nav.href} key={nav.key} passHref>
+          <NavItem
+            key={nav.key}
+            active={router.asPath === nav.href}
+          >
+            { nav.key }
+          </NavItem>
+        </Link>
+      )
+    })
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -63,20 +92,13 @@ const Header = () => {
             height={32}
             width={102}
           />
+          <Input placeholder="搜尋劇名/演員" />
         </LeftWrapper>
         <RightWrapper>
           <NavWrapper>
-            {
-              HEADER_ROUTE.map(nav =>{
-                return (
-                  <NavItem key={nav}>
-                    { nav }
-                  </NavItem>
-                )
-              })
-            }
-            <Avatar />
+            { renderNavList() }
           </NavWrapper>
+          <Avatar />
         </RightWrapper>
       </Wrapper>
     </Container>
