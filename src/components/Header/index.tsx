@@ -15,21 +15,20 @@ interface HeaderProps {
 
 const Container = styled.header<HeaderProps>`
   height: 58px;
+  width: 100%;
 
   display: flex;
   align-items: center;
-  position: sticky;
+  position: fixed;
   top: 0;
+  z-index: 5;
 
   box-shadow: ${props => props.isHitTop
     ? 'none'
     : '0px 2px 8px rgba(0, 0, 0, 0.48)'
   };
   color: #1B1E25AD;
-  backdrop-filter: ${props => props.isHitTop
-    ? 'none'
-    : 'blur(5px)'
-  };
+  backdrop-filter: blur(3px);
 `;
 
 const Wrapper = styled.div`
