@@ -18,6 +18,8 @@ const Container = styled.header<HeaderProps>`
 
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0;
 
   box-shadow: ${props => props.isHitTop
     ? 'none'
@@ -34,6 +36,7 @@ const Wrapper = styled.div`
   max-width: 1280px;
   width: 100%;
   padding: 0 40px;
+  margin: 0 auto;
 
   display: flex;
   align-items: center;
