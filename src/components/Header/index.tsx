@@ -28,7 +28,7 @@ const Container = styled.header<HeaderProps>`
     : '0px 2px 8px rgba(0, 0, 0, 0.48)'
   };
   color: #1B1E25AD;
-  backdrop-filter: blur(3px);
+  background-color: rgba(27, 30, 37, 0.68);
 `;
 
 const Wrapper = styled.div`

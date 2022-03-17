@@ -1,6 +1,8 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+import CarouselItem from './CarouselItem';
 
 const CarouselContainer = styled.div`
   position: relative;
@@ -16,18 +18,17 @@ interface ItemProps {
   isShow: boolean
 }
 
-const CarouselItem = styled.div<ItemProps>`
-  position: relative;
-  display: ${props => props.isShow ? 'block' : 'none'};
-  align-items: center;
-  width: 100%;
-  height: 720px;
-  transition: -webkit-transform .6s ease;
-  transition: transform .6s ease;
-  transition: transform .6s ease,-webkit-transform .6s ease;
-  backface-visibility: hidden;
-  perspective: 1000px;
-`;
+// const CarouselItem = styled.div<ItemProps>`
+//   position: relative;
+//   display: ${props => props.isShow ? 'block' : 'none'};
+//   align-items: center;
+//   width: 100%;
+//   height: 720px;
+//   transition: transform .6s ease;
+//   transition: transform .6s ease;
+//   backface-visibility: hidden;
+//   perspective: 1000px;
+// `;
 
 const IndicatorContainer = styled.ol`
   position: absolute;
@@ -93,8 +94,30 @@ interface BannerProps {
   imgBackDropList: ImageProps[]
 }
 
+// start -> transform: translateX(100%);
+// end   -> transform: translateX(-100%);
+
+// 2 -> start -> 0.6s -> 1 display: none
+// 3 -> start -> o.6s -> 2 display: none
+
 const Banner = ({ imgBackDropList = [] } : BannerProps) => {
   const [curIndex, setCurIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurIndex(prev => {
+        if (prev + 1 > imgBackDropList.length - 1) {
+          return 0;
+        } else {
+          return prev + 1;
+        }
+      });
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, [imgBackDropList]);
 
   return (
     <CarouselContainer>
@@ -124,13 +147,6 @@ const Banner = ({ imgBackDropList = [] } : BannerProps) => {
                   src={`${IMG_PREFIX_PATH}${backdropPath.backdrop_path}`}
                   alt={backdropPath.backdrop_path}
                 />
-                {/* <Image
-                  src={`${IMG_PREFIX_PATH}${backdropPath.backdrop_path}`}
-                  width="100%"
-                  height={720}
-                  alt="backdropPath"
-                  layout='responsive'
-                /> */}
               </CarouselItem>
             )
           })
